@@ -15,7 +15,7 @@ import SwiftUI
 
 //PlaygroundPage.current.wantsFullScreenLiveView = true
 //PlaygroundPage.current.setLiveView(ContentView())
-
+// PlaygroundSupport.PlaygroundPage.current.setLiveView(Rectangle().frame(width: 100, height: 100))
 
 
 public struct ContentView: View {
@@ -24,80 +24,54 @@ public struct ContentView: View {
     @State var edgeLength = CGFloat(250)
     @State var innerRotationPercentage = CGFloat(17)
     @State var iterations = 17
-    @State var squareCornerRadius = CGFloat(0)
-    @State var rowCount = 1
-    @State var columnCount = 1
+    @State var squareCornerRadius = CGFloat(20)
+    @State var rowCount = 2
+    @State var columnCount = 2
     @State var alternating = false
     
     public var body: some View {
-        let normalSpiral = spiralRight()
-        let alternateSpiral = spiralLeft()
+        let spiralR = Spiral(
+            steps: iterations,
+            offsetRatio: innerRotationPercentage / 100.0,
+            edgeLength: edgeLength,
+            cornerRadius: squareCornerRadius
+        )
+        let spiralL = Spiral(
+            steps: iterations,
+            offsetRatio: (100 - innerRotationPercentage) / 100.0,
+            edgeLength: edgeLength,
+            cornerRadius: squareCornerRadius
+        )
         return ZStack {
             ForEach(1...self.rowCount, id: \.self) { row in
                 ForEach<ClosedRange<Int>, Int, AnyView>(1...self.columnCount, id: \.self) { column in
-                    let spiralView = (self.alternating && ((row + column) % 2) == 0) ? alternateSpiral : normalSpiral
-                    return AnyView(spiralView.transformEffect(CGAffineTransform.init(translationX: (CGFloat(column - 1) - CGFloat(self.columnCount-1)/CGFloat(2.0)) * self.edgeLength, y: (CGFloat(row - 1) - CGFloat(self.rowCount-1)/CGFloat(2.0)) * self.edgeLength)))
+                    let spiral = (self.alternating && ((row + column) % 2) == 0) ? spiralL : spiralR
+                    return AnyView( spiral.offset(
+                        x: CGFloat(column*2 - self.columnCount - 1) * self.edgeLength / 2,
+                        y: CGFloat(row*2 - self.rowCount - 1) * self.edgeLength / 2))
                 }
             }
             settingsView()
         }
-        
     }
     
-    func spiralRight() -> AnyView {
-        AnyView(
-            spiral(
-                steps: self.iterations,
-                offsetRatio: self.innerRotationPercentage / 100.0,
-                edgeLength: self.edgeLength,
-                cornerRadius: self.squareCornerRadius
-            )
-        )
-    }
     
-    func spiralLeft() -> AnyView {
-        AnyView(
-            spiral(
-                steps: self.iterations,
-                offsetRatio: (100 - self.innerRotationPercentage) / 100.0,
-                edgeLength: self.edgeLength,
-                cornerRadius: self.squareCornerRadius
-            )
-        )
-    }
-    
-    let smallRectangleIcon = AnyView(
-        spiral(steps: 2, offsetRatio: 0.5, edgeLength: 10, color: Color(.label))
-    )
+    let smallRectangleIcon = Spiral(steps: 2, offsetRatio: 0.5, edgeLength: 10, color: Color(.label))
+    let bigRectangleIcon = Spiral(steps: 2, offsetRatio: 0.5, edgeLength: 30, color: Color(.label))
+    let rightRotationIcon = Spiral(steps: 2, offsetRatio: 0.2, edgeLength: 20, lineWidth: 1, color: Color(.label))
+    let leftRotationIcon = Spiral(steps: 2, offsetRatio: 0.8, edgeLength: 20, lineWidth: 1, color: Color(.label))
+    let rectangularCornerIcon = Spiral(steps: 2, offsetRatio: 0.4, edgeLength: 30, cornerRadius: 0, color: Color(.label))
+    let roundedCornerIcon = Spiral(steps: 2, offsetRatio: 0.4, edgeLength: 30, cornerRadius: 9, color: Color(.label))
 
-    let bigRectangleIcon = AnyView(
-        spiral(steps: 2, offsetRatio: 0.5, edgeLength: 30, color: Color(.label))
-    )
-        
-    let rightRotationIcon = AnyView(
-        spiral(steps: 2, offsetRatio: 0.2, edgeLength: 20, lineWidth: 1, color: Color(.label))
-    )
-        
-    let leftRotationIcon = AnyView(
-        spiral(steps: 2, offsetRatio: 0.8, edgeLength: 20, lineWidth: 1, color: Color(.label))
-    )
-        
-    let rectangularCornerIcon = AnyView(
-        spiral(steps: 2, offsetRatio: 0.4, edgeLength: 30, cornerRadius: 0, color: Color(.label))
-    )
-        
-    let roundedCornerIcon = AnyView(
-        spiral(steps: 2, offsetRatio: 0.4, edgeLength: 30, cornerRadius: 9, color: Color(.label))
-    )
-        
     func settingsView() -> AnyView {
-        AnyView (
+
+        return AnyView (
             HStack {
                 VStack {
                     Spacer()
                     if showSettings {
                         VStack {
-                            Slider(value: $edgeLength, in: 0...500,
+                            Slider(value: $edgeLength, in: 10...1000,
                                    minimumValueLabel: smallRectangleIcon,
                                    maximumValueLabel: bigRectangleIcon
                             ) {
@@ -126,7 +100,7 @@ public struct ContentView: View {
                             
                             Button(action: { self.showSettings = false }) {
                                 HStack {
-                                    Image(systemName: "xmark.circle.fill").font(.headline)
+                                    Image(systemName: "xmark.circle.fill").font(.headline).padding(.top, 10)
                                     Spacer()
                                 }
                                 
@@ -153,37 +127,47 @@ public struct ContentView: View {
     }
 }
 
-
-
-
-func spiral(
-    steps: Int = 50,
-    offsetRatio: CGFloat = 0.1,
-    edgeLength: CGFloat = 500,
-    cornerRadius: CGFloat = 0,
-    lineWidth: CGFloat = 1,
-    color: Color = .orange
-) -> some View {
-    
-    let oneStep = innerRotation(offsetRatio: offsetRatio, edgeLength: edgeLength)
-    var currentTransform = CGAffineTransform.identity
-    let ts = (1...steps).map { _ -> CGAffineTransform in
-        let result: CGAffineTransform = currentTransform
-        currentTransform = currentTransform.concatenating(oneStep)
-        return result
-    }
-    return ZStack {
-        ForEach(ts, id: \.self) {(t: CGAffineTransform) in
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .transform(t)
-                .stroke(lineWidth: lineWidth)
-                // if you swap the two lines above (.transform... and .stroke...) then linewidth is also transformed
-                .aspectRatio(contentMode: ContentMode.fit)
-                .frame(width: edgeLength, height: edgeLength)
-                .foregroundColor(color)
-            
+public struct Spiral : View {
+    public let steps: Int
+    public let offsetRatio: CGFloat
+    public let edgeLength: CGFloat
+    public let cornerRadius: CGFloat
+    public let lineWidth: CGFloat
+    public let color: Color
+    public var body: some View {
+        let step = innerRotationTransform(offsetRatio: offsetRatio, centerX: edgeLength/2, centerY: edgeLength/2)
+        let transforms = repeatedTransforms(times: steps, step: step)
+        return ZStack {
+            ForEach(transforms, id: \.self) {(transform: CGAffineTransform) in
+                RoundedRectangle(cornerRadius: self.cornerRadius)
+                    .transform(transform)
+                    .stroke(lineWidth: self.lineWidth)
+                    // if you swap the two lines above (.transform... and .stroke...) then linewidth is also transformed
+                    .aspectRatio(contentMode: ContentMode.fit)
+                    .frame(width: self.edgeLength, height: self.edgeLength)
+                    .foregroundColor(self.color)
+            }
         }
+
     }
+
+    public init(
+        steps: Int = 50,
+        offsetRatio: CGFloat = 0.1,
+        edgeLength: CGFloat = 500,
+        cornerRadius: CGFloat = 0,
+        lineWidth: CGFloat = 1,
+        color: Color = .orange
+    ) {
+        self.steps = steps
+        self.offsetRatio = offsetRatio
+        self.edgeLength = edgeLength
+        self.cornerRadius = cornerRadius
+        self.lineWidth = lineWidth
+        self.color = color
+
+    }
+
 }
 
 extension CGAffineTransform : Hashable {
@@ -211,30 +195,18 @@ func square(
     
 }
 
-
-
-func repeatTransform(times: Int, step: CGAffineTransform) -> CGAffineTransform {
-    var transform = CGAffineTransform.identity
-    (0..<times).forEach {_ in
+func repeatedTransforms(
+    first: CGAffineTransform = CGAffineTransform.identity,
+    times: Int,
+    step: CGAffineTransform) -> [CGAffineTransform] {
+    var results = [CGAffineTransform]()
+    var transform = first
+    for _ in (0..<times) {
+        results.append(transform)
         transform = transform.concatenating(step)
     }
-    return transform
+    return results
 }
-
-func mirrorHorizontal(centerX: CGFloat, centerY: CGFloat) -> CGAffineTransform {
-    CGAffineTransform(scaleX: -1, y: 1)
-        .concatenating(CGAffineTransform(translationX: centerX * 2, y: 0))
-}
-
-func innerRotation(offsetRatio: CGFloat, edgeLength: CGFloat) -> CGAffineTransform {
-    CGAffineTransform(translationX: -edgeLength/2, y: -edgeLength/2)
-        .concatenating(CGAffineTransform(a: 1 - offsetRatio, b: offsetRatio, c: 0 - offsetRatio, d: 1 - offsetRatio, tx: 0, ty: 0))
-        .concatenating(CGAffineTransform(translationX: edgeLength/2, y: edgeLength/2))}
-
-func cornerOnEdgeRotation(offsetRatio: CGFloat, centerX: CGFloat, centerY: CGFloat) -> CGAffineTransform {
-    CGAffineTransform(translationX: -centerX, y: -centerY)
-        .concatenating(CGAffineTransform(a: 1 - offsetRatio, b: offsetRatio, c: 0 - offsetRatio, d: 1 - offsetRatio, tx: 0, ty: 0))
-        .concatenating(CGAffineTransform(translationX: centerX, y: centerY))}
 
 struct Matrix : View {
     @Binding var t: CGAffineTransform
@@ -256,20 +228,31 @@ struct Matrix : View {
     }
 }
 
-func affineTransform (rotationAngle: CGFloat, centerX: CGFloat, centerY: CGFloat) -> CGAffineTransform {
+
+func mirrorHorizontalTransform(centerX: CGFloat, centerY: CGFloat) -> CGAffineTransform {
+    CGAffineTransform(scaleX: -1, y: 1)
+        .concatenating(CGAffineTransform(translationX: centerX * 2, y: 0))
+}
+
+func innerRotationTransform(offsetRatio: CGFloat, centerX: CGFloat, centerY: CGFloat) -> CGAffineTransform {
     CGAffineTransform(translationX: -centerX, y: -centerY)
-        .concatenating(CGAffineTransform(rotationAngle: rotationAngle))
+        .concatenating(CGAffineTransform(a: 1 - offsetRatio, b: offsetRatio, c: 0 - offsetRatio, d: 1 - offsetRatio, tx: 0, ty: 0))
+        .concatenating(CGAffineTransform(translationX: centerX, y: centerY))}
+
+func rotationTransform(angle: CGFloat, centerX: CGFloat, centerY: CGFloat) -> CGAffineTransform {
+    CGAffineTransform(translationX: -centerX, y: -centerY)
+        .concatenating(CGAffineTransform(rotationAngle: angle))
         .concatenating(CGAffineTransform(translationX: centerX, y: centerY))
 }
 
-func affineTransform(scaleX: CGFloat, scaleY: CGFloat, centerX: CGFloat, centerY: CGFloat) -> CGAffineTransform {
+func scaleTransform(scaleX: CGFloat, scaleY: CGFloat, centerX: CGFloat, centerY: CGFloat) -> CGAffineTransform {
     CGAffineTransform(translationX: -centerX, y: -centerY)
         .concatenating(CGAffineTransform(scaleX: scaleX, y: scaleY))
         .concatenating(CGAffineTransform(translationX: centerX, y: centerY))
 }
 
-func affineTransform(scale: CGFloat, centerX: CGFloat, centerY: CGFloat) -> CGAffineTransform {
-    affineTransform(scaleX: scale, scaleY: scale, centerX: centerX, centerY: centerY)
+func scaleTransform(scale: CGFloat, centerX: CGFloat, centerY: CGFloat) -> CGAffineTransform {
+    scaleTransform(scaleX: scale, scaleY: scale, centerX: centerX, centerY: centerY)
 }
 
 

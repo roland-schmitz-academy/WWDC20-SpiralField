@@ -13,6 +13,8 @@
 		FCDBFF61246DB49F00A0054C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCDBFF60246DB49F00A0054C /* Assets.xcassets */; };
 		FCDBFF64246DB49F00A0054C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCDBFF63246DB49F00A0054C /* Preview Assets.xcassets */; };
 		FCDBFF67246DB49F00A0054C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCDBFF65246DB49F00A0054C /* LaunchScreen.storyboard */; };
+		FCFC9D7C2470176000659AED /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFC9D7B2470176000659AED /* Shared.swift */; };
+		FCFC9D7E247069AB00659AED /* SimpleTransformations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFC9D7D247069AB00659AED /* SimpleTransformations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		FCDBFF66246DB49F00A0054C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FCDBFF68246DB49F00A0054C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FCDBFF6E246DB5E900A0054C /* WWDC Spirals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WWDC Spirals.entitlements"; sourceTree = "<group>"; };
+		FCFC9D7B2470176000659AED /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
+		FCFC9D7D247069AB00659AED /* SimpleTransformations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTransformations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +62,15 @@
 			isa = PBXGroup;
 			children = (
 				FCDBFF6E246DB5E900A0054C /* WWDC Spirals.entitlements */,
+				FCDBFF62246DB49F00A0054C /* Preview Content */,
+				FCDBFF60246DB49F00A0054C /* Assets.xcassets */,
+				FCDBFF68246DB49F00A0054C /* Info.plist */,
+				FCDBFF65246DB49F00A0054C /* LaunchScreen.storyboard */,
 				FCDBFF5A246DB49B00A0054C /* AppDelegate.swift */,
 				FCDBFF5C246DB49B00A0054C /* SceneDelegate.swift */,
 				FCDBFF5E246DB49B00A0054C /* ContentView.swift */,
-				FCDBFF60246DB49F00A0054C /* Assets.xcassets */,
-				FCDBFF65246DB49F00A0054C /* LaunchScreen.storyboard */,
-				FCDBFF68246DB49F00A0054C /* Info.plist */,
-				FCDBFF62246DB49F00A0054C /* Preview Content */,
+				FCFC9D7D247069AB00659AED /* SimpleTransformations.swift */,
+				FCFC9D7B2470176000659AED /* Shared.swift */,
 			);
 			path = "WWDC Spirals";
 			sourceTree = "<group>";
@@ -150,7 +156,9 @@
 			files = (
 				FCDBFF5B246DB49B00A0054C /* AppDelegate.swift in Sources */,
 				FCDBFF5D246DB49B00A0054C /* SceneDelegate.swift in Sources */,
+				FCFC9D7C2470176000659AED /* Shared.swift in Sources */,
 				FCDBFF5F246DB49B00A0054C /* ContentView.swift in Sources */,
+				FCFC9D7E247069AB00659AED /* SimpleTransformations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
