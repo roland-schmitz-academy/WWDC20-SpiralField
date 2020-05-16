@@ -24,6 +24,7 @@
 		FCDBFF63246DB49F00A0054C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FCDBFF66246DB49F00A0054C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FCDBFF68246DB49F00A0054C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCDBFF6E246DB5E900A0054C /* WWDC Spirals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WWDC Spirals.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +57,7 @@
 		FCDBFF59246DB49B00A0054C /* WWDC Spirals */ = {
 			isa = PBXGroup;
 			children = (
+				FCDBFF6E246DB5E900A0054C /* WWDC Spirals.entitlements */,
 				FCDBFF5A246DB49B00A0054C /* AppDelegate.swift */,
 				FCDBFF5C246DB49B00A0054C /* SceneDelegate.swift */,
 				FCDBFF5E246DB49B00A0054C /* ContentView.swift */,
@@ -284,6 +286,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "WWDC Spirals/WWDC Spirals.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"WWDC Spirals/Preview Content\"";
 				DEVELOPMENT_TEAM = EE29XD2KE9;
@@ -295,6 +298,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.2rs.WWDC-Spirals";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -304,6 +308,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "WWDC Spirals/WWDC Spirals.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"WWDC Spirals/Preview Content\"";
 				DEVELOPMENT_TEAM = EE29XD2KE9;
@@ -315,6 +320,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.2rs.WWDC-Spirals";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
