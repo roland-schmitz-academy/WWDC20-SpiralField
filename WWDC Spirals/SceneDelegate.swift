@@ -1,9 +1,10 @@
 //
 //  SceneDelegate.swift
-//  WWDC Spirals
+//  WWDC Student Challenge
+//  SpiralGenerator
 //
 //  Created by Roland Schmitz on 14.05.20.
-//  Copyright © 2020 2rs. All rights reserved.
+//  Copyright © 2020 Roland Schmitz
 //
 
 import UIKit

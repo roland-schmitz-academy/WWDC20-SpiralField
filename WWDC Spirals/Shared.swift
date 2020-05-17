@@ -1,9 +1,136 @@
 //
 //  Shared.swift
-//  WWDC Spirals
+//  WWDC Student Challenge
+//  SpiralGenerator
 //
 //  Created by Roland Schmitz on 16.05.20.
-//  Copyright © 2020 2rs. All rights reserved.
+//  Copyright © 2020 Roland Schmitz
 //
 
 import Foundation
+import SwiftUI
+
+public struct CGAffineTransformView : View {
+    public var t: CGAffineTransform
+    
+    public init(_ t: CGAffineTransform) { self.t = t }
+    
+    public var body: some View {
+        VStack(spacing: 10) {
+            HStack(spacing: 10) {
+                Text("\(t.a, specifier: "%.1f")")
+                Text("\(t.b, specifier: "%.1f")")
+            }
+            HStack(spacing: 10) {
+                Text("\(t.c, specifier: "%.1f")")
+                Text("\(t.d, specifier: "%.1f")")
+            }
+            HStack(spacing: 10) {
+                Text("\(t.tx, specifier: "%.1f")")
+                Text("\(t.ty, specifier: "%.1f")")
+            }
+        }.padding().overlay(Rectangle().stroke(lineWidth: 2).foregroundColor(.gray)).padding()
+    }
+}
+
+public func innerRotationTransform(offsetRatio: CGFloat, centerX: CGFloat, centerY: CGFloat)
+    -> CGAffineTransform {
+        CGAffineTransform(translationX: -centerX, y: -centerY)
+            .concatenating(
+                CGAffineTransform(a: 1 - offsetRatio, b: offsetRatio, c: 0 - offsetRatio, d: 1 - offsetRatio, tx: 0, ty: 0) )
+            .concatenating(
+                CGAffineTransform(translationX: centerX, y: centerY))
+}
+
+public func repeatedTransforms(
+    first: CGAffineTransform = CGAffineTransform.identity,
+    times: Int,
+    step: CGAffineTransform)
+    -> [CGAffineTransform] {
+        var results = [CGAffineTransform]()
+        var transform = first
+        for _ in (0..<times) {
+            results.append(transform)
+            transform = transform.concatenating(step)
+        }
+        return results
+}
+
+public struct Spiral : View {
+    public let steps: Int
+    public let offsetRatio: CGFloat
+    public let edgeLength: CGFloat
+    public let cornerRadius: CGFloat
+    public let lineWidth: CGFloat
+    public let color: Color
+    public var body: some View {
+        let step = innerRotationTransform(offsetRatio: offsetRatio, centerX: edgeLength/2, centerY: edgeLength/2)
+        let transforms = repeatedTransforms(times: steps, step: step)
+        return ZStack {
+            ForEach(transforms, id: \.self) {(transform: CGAffineTransform) in
+                RoundedRectangle(cornerRadius: self.cornerRadius)
+                    .transform(transform)
+                    .stroke(lineWidth: self.lineWidth)
+                    // if you swap the two lines above (.transform... and .stroke...) then linewidth is also transformed
+                    .aspectRatio(contentMode: ContentMode.fit)
+                    .frame(width: self.edgeLength, height: self.edgeLength)
+                    .foregroundColor(self.color)
+            }
+        }
+
+    }
+
+    public init(
+        steps: Int = 50,
+        offsetRatio: CGFloat = 0.1,
+        edgeLength: CGFloat = 500,
+        cornerRadius: CGFloat = 0,
+        lineWidth: CGFloat = 1,
+        color: Color = .orange
+    ) {
+        self.steps = steps
+        self.offsetRatio = offsetRatio
+        self.edgeLength = edgeLength
+        self.cornerRadius = cornerRadius
+        self.lineWidth = lineWidth
+        self.color = color
+    }
+}
+
+extension CGAffineTransform : Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(a)
+        hasher.combine(b)
+        hasher.combine(c)
+        hasher.combine(d)
+        hasher.combine(tx)
+        hasher.combine(ty)
+    }
+}
+
+
+#if canImport(PlaygroundSupport)
+
+import PlaygroundSupport
+public func nextPageButton() -> some View {
+    Button(action: { PlaygroundPage.current.navigateTo(page: PlaygroundPage.PageNavigation.next) } ) {
+        Text("Next Page")
+    }
+}
+
+#else
+
+public func nextPageButton() -> some View {
+    Button(action: {  } ) {
+        Text("Next Page")
+    }
+}
+
+#endif
+
+public func nextPageView() -> some View {
+    VStack {
+        Spacer()
+        nextPageButton()
+    }
+}

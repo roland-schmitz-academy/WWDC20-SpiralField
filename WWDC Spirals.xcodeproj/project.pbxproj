@@ -14,7 +14,11 @@
 		FCDBFF64246DB49F00A0054C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCDBFF63246DB49F00A0054C /* Preview Assets.xcassets */; };
 		FCDBFF67246DB49F00A0054C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCDBFF65246DB49F00A0054C /* LaunchScreen.storyboard */; };
 		FCFC9D7C2470176000659AED /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFC9D7B2470176000659AED /* Shared.swift */; };
-		FCFC9D7E247069AB00659AED /* SimpleTransformations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFC9D7D247069AB00659AED /* SimpleTransformations.swift */; };
+		FCFC9D8024706A8800659AED /* SpiralField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFC9D7F24706A8800659AED /* SpiralField.swift */; };
+		FCFC9D822470856A00659AED /* SimpleTransformations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFC9D812470856A00659AED /* SimpleTransformations.swift */; };
+		FCFC9D842470A42D00659AED /* InnerRotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFC9D832470A42D00659AED /* InnerRotation.swift */; };
+		FCFC9D862470AC5B00659AED /* UnusedUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFC9D852470AC5B00659AED /* UnusedUtilities.swift */; };
+		FCFC9D882470B0BC00659AED /* Intro.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFC9D872470B0BC00659AED /* Intro.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +32,11 @@
 		FCDBFF68246DB49F00A0054C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FCDBFF6E246DB5E900A0054C /* WWDC Spirals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WWDC Spirals.entitlements"; sourceTree = "<group>"; };
 		FCFC9D7B2470176000659AED /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
-		FCFC9D7D247069AB00659AED /* SimpleTransformations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTransformations.swift; sourceTree = "<group>"; };
+		FCFC9D7F24706A8800659AED /* SpiralField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiralField.swift; sourceTree = "<group>"; };
+		FCFC9D812470856A00659AED /* SimpleTransformations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTransformations.swift; sourceTree = "<group>"; };
+		FCFC9D832470A42D00659AED /* InnerRotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InnerRotation.swift; sourceTree = "<group>"; };
+		FCFC9D852470AC5B00659AED /* UnusedUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnusedUtilities.swift; sourceTree = "<group>"; };
+		FCFC9D872470B0BC00659AED /* Intro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Intro.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,8 +77,12 @@
 				FCDBFF5A246DB49B00A0054C /* AppDelegate.swift */,
 				FCDBFF5C246DB49B00A0054C /* SceneDelegate.swift */,
 				FCDBFF5E246DB49B00A0054C /* ContentView.swift */,
-				FCFC9D7D247069AB00659AED /* SimpleTransformations.swift */,
+				FCFC9D872470B0BC00659AED /* Intro.swift */,
+				FCFC9D812470856A00659AED /* SimpleTransformations.swift */,
+				FCFC9D832470A42D00659AED /* InnerRotation.swift */,
+				FCFC9D7F24706A8800659AED /* SpiralField.swift */,
 				FCFC9D7B2470176000659AED /* Shared.swift */,
+				FCFC9D852470AC5B00659AED /* UnusedUtilities.swift */,
 			);
 			path = "WWDC Spirals";
 			sourceTree = "<group>";
@@ -154,11 +166,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCFC9D862470AC5B00659AED /* UnusedUtilities.swift in Sources */,
 				FCDBFF5B246DB49B00A0054C /* AppDelegate.swift in Sources */,
+				FCFC9D882470B0BC00659AED /* Intro.swift in Sources */,
 				FCDBFF5D246DB49B00A0054C /* SceneDelegate.swift in Sources */,
+				FCFC9D842470A42D00659AED /* InnerRotation.swift in Sources */,
 				FCFC9D7C2470176000659AED /* Shared.swift in Sources */,
+				FCFC9D8024706A8800659AED /* SpiralField.swift in Sources */,
+				FCFC9D822470856A00659AED /* SimpleTransformations.swift in Sources */,
 				FCDBFF5F246DB49B00A0054C /* ContentView.swift in Sources */,
-				FCFC9D7E247069AB00659AED /* SimpleTransformations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
