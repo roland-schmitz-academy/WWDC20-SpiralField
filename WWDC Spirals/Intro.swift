@@ -71,18 +71,44 @@ let _ = PlaygroundPage.current.setLiveView(
 
 #endif
 
- /// Run the code! It should show a simple rectangle.
- ///
- /// If you want to experiment a bit try to
- /// replace `Rectangle()` with `Circle()` or
- /// with `RoundedRectangle(cornerRadius: 10)`.
- ///
- /// Or try to replace `fill()` with `stroke(lineWidth: 5)` or
- /// add a `.foregroundColor(.orange)` modifier after the `.fill()`.
- ///
- /// Now lets go to the next page to see some Affine Transformations.
- ///
- /// If you prefer to skip all the explaining steps you can jump directly
- /// to the Spiral Field page and have fun creating your personal
- /// drawing.
- ///
+/**
+ Run the code! It should show a simple rectangle.
+ 
+ If you want to experiment a bit try to
+ replace `Rectangle()` with `Circle()` or
+ with `RoundedRectangle(cornerRadius: 10)`.
+ 
+ Or try to replace `fill()` with `stroke(lineWidth: 5)` or
+ add a `.foregroundColor(.orange)` modifier after the `.fill()`.
+ 
+ Now lets go to the next page to see some Affine Transformations.
+ 
+ If you prefer to skip all the explaining steps you can jump directly
+ to the Spiral Field page and have fun creating your personal
+ drawing.
+ 
+ 
+ ## Additional Infos
+ 
+ If you have a working internet connection you can find more in depth information by
+ navigating the following links:
+ 
+ ### Links to Apple Documentation:
+ 
+ * [CGAffineTransform - Core Graphics | Apple Developer Documentation](https://developer.apple.com/documentation/coregraphics/cgaffinetransform)
+ * Framework: Core Graphics
+ * SDKs: iOS 2.0+, macOS 10.0+, Mac Catalyst 13.0+, tvOS 9.0+, watchOS 2.0+
+ * [AffineTransform - Foundation | Apple Developer Documentation](https://developer.apple.com/documentation/foundation/affinetransform)
+ - Framework: Foundation
+ - SDKs: macOS 10.9+
+ * [Working with Matrices | Apple Developer Documentation](https://developer.apple.com/documentation/accelerate/working_with_matrices)
+ * Framework: Accelerate
+ 
+ ### External Links
+ 
+ * [Affine transformation - Wikipedia](https://en.wikipedia.org/wiki/Affine_transformation)
+ * [What are Affine Transformations? - Computer Graphics Stack Exchange](https://computergraphics.stackexchange.com/questions/391/what-are-affine-transformations)
+ * [Graphical Kernel System - Wikipedia](https://en.wikipedia.org/wiki/Graphical_Kernel_System)
+ 
+ */
+

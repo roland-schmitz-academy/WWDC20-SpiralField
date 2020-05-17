@@ -174,5 +174,6 @@ struct SimpleTransformations: View {
 import PlaygroundSupport
 import SwiftUI
 let _ = PlaygroundPage.current.setLiveView(SimpleTransformations())
+let _ = ( PlaygroundPage.current.wantsFullScreenLiveView = true )
 
 #endif

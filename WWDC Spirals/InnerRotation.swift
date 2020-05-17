@@ -52,14 +52,13 @@ public struct InnerRotation: View {
         }
     }
     
-        
+    public init() {}
+
     /// The Icons for the slider labels in the settings view are enerated at runtime:
     let smallRectangleIcon = Spiral(steps: 2, offsetRatio: 0.5, edgeLength: 10, color: Color(.label))
     let bigRectangleIcon = Spiral(steps: 2, offsetRatio: 0.5, edgeLength: 30, color: Color(.label))
     let rightRotationIcon = Spiral(steps: 2, offsetRatio: 0.2, edgeLength: 20, lineWidth: 1, color: Color(.label))
     let leftRotationIcon = Spiral(steps: 2, offsetRatio: 0.8, edgeLength: 20, lineWidth: 1, color: Color(.label))
-
-    public init() {}
     
     /// state variable which defines, if the settings view is visible or not
     @State var showSettings = true
@@ -73,7 +72,7 @@ public struct InnerRotation: View {
                     Spacer()
                     if showSettings {
                         VStack {
-                            Slider(value: $edgeLength, in: 10...1000,
+                            Slider(value: $edgeLength, in: 10...600,
                                    minimumValueLabel: smallRectangleIcon,
                                    maximumValueLabel: bigRectangleIcon
                             ) {
@@ -133,5 +132,6 @@ public struct InnerRotation: View {
 import PlaygroundSupport
 import SwiftUI
 let _ = PlaygroundPage.current.setLiveView(InnerRotation())
+let _ = ( PlaygroundPage.current.wantsFullScreenLiveView = true )
 
 #endif
