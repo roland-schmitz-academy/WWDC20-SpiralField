@@ -22,7 +22,7 @@ import SwiftUI
 struct SpiralField: View {
     
     /// state value for all the settings
-    @State var edgeLength = CGFloat(250)
+    @State var edgeLength = CGFloat(240)
     @State var innerRotationPercentage = CGFloat(17)
     @State var iterations = 17
     @State var squareCornerRadius = CGFloat(20)
@@ -88,7 +88,7 @@ struct SpiralField: View {
                     Spacer()
                     if showSettings {
                         VStack {
-                            Slider(value: $edgeLength, in: 10...600,
+                            Slider(value: $edgeLength, in: 10...500,
                                    minimumValueLabel: smallRectangleIcon,
                                    maximumValueLabel: bigRectangleIcon
                             ) {
@@ -124,7 +124,7 @@ struct SpiralField: View {
                             }
                         }   .frame(maxWidth: 200, alignment: .topTrailing)
                             .padding(10)
-                            .background(Color(.tertiarySystemBackground).opacity(0.6))
+                            .background(Color(.systemGray2).opacity(0.7))
                             .cornerRadius(20)
                             .padding(10)
                         
@@ -133,7 +133,7 @@ struct SpiralField: View {
                             Image(systemName: "gear").font(.headline).aspectRatio(contentMode: .fit)
                         }
                         .padding(10)
-                        .background(Color(.tertiarySystemBackground).opacity(0.6))
+                        .background(Color(.systemGray2).opacity(0.7))
                         .cornerRadius(20)
                         .padding(10)
                     }
@@ -151,7 +151,6 @@ struct SpiralField: View {
 #if canImport(PlaygroundSupport)
 
 import PlaygroundSupport
-import SwiftUI
 let _ = PlaygroundPage.current.setLiveView(SpiralField())
 let _ = ( PlaygroundPage.current.wantsFullScreenLiveView = true )
 

@@ -38,6 +38,8 @@ public struct InnerRotation: View {
     
     public var body: some View {
         return ZStack {
+            Goal(message: "Try to create a nice spiral!")
+
             ZStack {
                 Spiral(
                     steps: iterations,
@@ -72,7 +74,7 @@ public struct InnerRotation: View {
                     Spacer()
                     if showSettings {
                         VStack {
-                            Slider(value: $edgeLength, in: 10...600,
+                            Slider(value: $edgeLength, in: 10...500,
                                    minimumValueLabel: smallRectangleIcon,
                                    maximumValueLabel: bigRectangleIcon
                             ) {
@@ -87,7 +89,7 @@ public struct InnerRotation: View {
                             Stepper("\(iterations) Iterations", value: $iterations, in: 1...99, step: 1)
                             
                             /// show the resulting inner rotation matrix
-                            Text("Inner Rotation Transformation:").padding(.top, 10)
+                            Text("Transformation:").padding(.top, 10)
                             CGAffineTransformView(
                                 innerRotationTransform(
                                     offsetRatio: innerRotationPercentage / 100,
@@ -103,7 +105,7 @@ public struct InnerRotation: View {
                             }
                         }   .frame(maxWidth: 200, alignment: .topTrailing)
                             .padding(10)
-                            .background(Color(.tertiarySystemBackground).opacity(0.6))
+                            .background(Color(.systemGray2).opacity(0.7))
                             .cornerRadius(20)
                             .padding(10)
                         
@@ -112,7 +114,7 @@ public struct InnerRotation: View {
                             Image(systemName: "gear").font(.headline).aspectRatio(contentMode: .fit)
                         }
                         .padding(10)
-                        .background(Color(.tertiarySystemBackground).opacity(0.6))
+                        .background(Color(.systemGray2).opacity(0.7))
                         .cornerRadius(20)
                         .padding(10)
                     }
@@ -130,7 +132,6 @@ public struct InnerRotation: View {
 #if canImport(PlaygroundSupport)
 
 import PlaygroundSupport
-import SwiftUI
 let _ = PlaygroundPage.current.setLiveView(InnerRotation())
 let _ = ( PlaygroundPage.current.wantsFullScreenLiveView = true )
 

@@ -59,7 +59,8 @@ struct SimpleTransformations: View {
         return ZStack {
             
             ZStack {
-                
+                Goal(message: "Try changing the parameters of translation, scaling and rotation!")
+
                 /// Draw a gray Rectangle without transformation
                 Rectangle().stroke(lineWidth: 5).frame(width: 100, height: 100).foregroundColor(.gray)
                 
@@ -88,22 +89,22 @@ struct SimpleTransformations: View {
                         VStack {
                             Group {
                                 /// sliders for all the adjustable input values
-                                Slider(value: $offsetX, in: -100...100,
-                                       minimumValueLabel: Text("-100"),
-                                       maximumValueLabel: Text("+100")
+                                Slider(value: $offsetX, in: -99...99,
+                                       minimumValueLabel: Text("-99"),
+                                       maximumValueLabel: Text("+99")
                                 ) {
                                     Text("Translate X")
                                 }
-                                Text("Translate X: \(offsetX, specifier: "%.1f")")
                                 
-                                Slider(value: $offsetY, in: -100...100,
-                                       minimumValueLabel: Text("-100"),
-                                       maximumValueLabel: Text("+100")
+                                Slider(value: $offsetY, in: -99...99,
+                                       minimumValueLabel: Text("-99"),
+                                       maximumValueLabel: Text("+99")
                                 ) {
                                     Text("Delta Y")
                                 }
-                                
-                                Text("Translate Y: \(offsetY, specifier: "%.1f")")
+                                Text("Translate X: \(offsetX, specifier: "%.1f"), Y: \(offsetY, specifier: "%.1f")")
+
+                                //Text("Translate Y: \(offsetY, specifier: "%.1f")")
                                 
                                 Slider(value: $scaleX, in: -3...3,
                                        minimumValueLabel: Text("-3"),
@@ -111,7 +112,6 @@ struct SimpleTransformations: View {
                                 ) {
                                     Text("Scale X")
                                 }
-                                Text("Scale X: \(scaleX, specifier: "%.1f")")
                                 
                                 Slider(value: $scaleY, in: -3...3,
                                        minimumValueLabel: Text("-3"),
@@ -119,7 +119,8 @@ struct SimpleTransformations: View {
                                 ) {
                                     Text("Scale Y")
                                 }
-                                Text("Scale Y: \(scaleY, specifier: "%.1f")")
+                                Text("Scale X: \(scaleX, specifier: "%.1f"), Y: \(scaleY, specifier: "%.1f")")
+                                //Text("Scale Y: \(scaleY, specifier: "%.1f")")
                                 
                                 Slider(value: $rotationAngle, in: -180...180,
                                        minimumValueLabel: Text("-180"),
@@ -133,12 +134,12 @@ struct SimpleTransformations: View {
                             }
                             
                             /// show the resulting matrix
-                            Text("Resulting Transformation Matrix:").padding(.top, 10)
+                            Text("Transformation:").padding(.top, 10)
                             CGAffineTransformView(t)
                             
                             Button(action: { self.showSettings = false }) {
                                 HStack {
-                                    Image(systemName: "xmark.circle.fill").font(.headline).padding(.top, 10)
+                                    Image(systemName: "xmark.circle.fill").font(.headline)//.padding(.top, 10)
                                     Spacer()
 
                                 }
@@ -146,7 +147,7 @@ struct SimpleTransformations: View {
                             }
                         }   .frame(maxWidth: 200, alignment: .topTrailing)
                             .padding(10)
-                            .background(Color(.tertiarySystemBackground).opacity(0.6))
+                            .background(Color(.systemGray2).opacity(0.7))
                             .cornerRadius(20)
                             .padding(10)
                         
@@ -155,7 +156,7 @@ struct SimpleTransformations: View {
                             Image(systemName: "gear").font(.headline).aspectRatio(contentMode: .fit)
                         }
                         .padding(10)
-                        .background(Color(.tertiarySystemBackground).opacity(0.6))
+                        .background(Color(.systemGray2).opacity(0.7))
                         .cornerRadius(20)
                         .padding(10)
                     }
@@ -172,7 +173,6 @@ struct SimpleTransformations: View {
 #if canImport(PlaygroundSupport)
 
 import PlaygroundSupport
-import SwiftUI
 let _ = PlaygroundPage.current.setLiveView(SimpleTransformations())
 let _ = ( PlaygroundPage.current.wantsFullScreenLiveView = true )
 

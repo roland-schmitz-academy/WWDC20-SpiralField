@@ -29,7 +29,7 @@ public struct CGAffineTransformView : View {
                 Text("\(t.tx, specifier: "%.1f")")
                 Text("\(t.ty, specifier: "%.1f")")
             }
-        }.padding().overlay(Rectangle().stroke(lineWidth: 2).foregroundColor(.gray)).padding()
+        }.padding().overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(.gray)).padding(2)
     }
 }
 
@@ -132,5 +132,18 @@ public func nextPageView() -> some View {
     VStack {
         Spacer()
         nextPageButton()
+    }
+}
+
+public struct Goal : View {
+    public let message: String
+
+    public init(message: String) { self.message = message }
+
+    public var body: some View {
+        VStack {
+            Text(message).font(.title).frame(width: 400)
+            Spacer()
+        }
     }
 }

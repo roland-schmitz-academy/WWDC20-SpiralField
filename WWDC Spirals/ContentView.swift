@@ -21,7 +21,9 @@ struct ContentView : View {
     var body: some View {
         NavigationView {
             List() {
-                //Intro()
+                NavigationLink(destination: MatrixDemo()) {
+                    Text("MatrixDemo")
+                }
                 NavigationLink(destination: SimpleTransformations()) {
                     Text("SimpleTransformations")
                 }
