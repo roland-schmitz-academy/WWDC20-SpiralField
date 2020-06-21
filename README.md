@@ -1,5 +1,7 @@
 # Spiral Field - WWDC20 Swift Student Challenge Award Winner
 
+![Spiral Field Playground, Page 4](SpiralFieldScreenshot.png)
+
 ## TL;DR
 
 Run the `Spiral Field.playgroundbook` with the Playgrounds app on a Mac or an iPad.
