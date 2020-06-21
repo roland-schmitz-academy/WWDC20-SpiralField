@@ -2,7 +2,9 @@
 
 ## TL;DR
 
-Just download, and run the `Spiral Field.playgroundbook` with the Playgrounds app on a Mac or an iPad
+Run the `Spiral Field.playgroundbook` with the Playgrounds app on a Mac or an iPad.
+
+There is also an app version which runs on iOS and on macOS. Just open the `WWDC Spirals.xcodeproj` with Xcode and run it.
 
 ## The story behind my Playground
 
