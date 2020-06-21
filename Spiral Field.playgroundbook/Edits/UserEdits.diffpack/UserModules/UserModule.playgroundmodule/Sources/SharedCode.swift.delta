@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diffs</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>//
+//  Shared.swift
+//  WWDC Student Challenge
+//  SpiralGenerator
+//
+//  Created by Roland Schmitz on 16.05.20.
+//  Copyright © 2020 Roland Schmitz
+//
+
+import Foundation
+import SwiftUI
+
+public struct CGAffineTransformView : View {
+    public var t: CGAffineTransform
+    
+    public init(_ t: CGAffineTransform) { self.t = t }
+    
+    public var body: some View {
+        VStack(spacing: 10) {
+            HStack(spacing: 10) {
+                Text("\(t.a, specifier: "%.1f")")
+                Text("\(t.b, specifier: "%.1f")")
+            }
+            HStack(spacing: 10) {
+                Text("\(t.c, specifier: "%.1f")")
+                Text("\(t.d, specifier: "%.1f")")
+            }
+            HStack(spacing: 10) {
+                Text("\(t.tx, specifier: "%.1f")")
+                Text("\(t.ty, specifier: "%.1f")")
+            }
+        }.padding().overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2).foregroundColor(.gray)).padding(2)
+    }
+}
+
+public func innerRotationTransform(offsetRatio: CGFloat, centerX: CGFloat, centerY: CGFloat)
+    -&gt; CGAffineTransform {
+        CGAffineTransform(translationX: -centerX, y: -centerY)
+            .concatenating(
+                CGAffineTransform(a: 1 - offsetRatio, b: offsetRatio, c: 0 - offsetRatio, d: 1 - offsetRatio, tx: 0, ty: 0) )
+            .concatenating(
+                CGAffineTransform(translationX: centerX, y: centerY))
+}
+
+public func repeatedTransforms(
+    first: CGAffineTransform = CGAffineTransform.identity,
+    times: Int,
+    step: CGAffineTransform)
+    -&gt; [CGAffineTransform] {
+        var results = [CGAffineTransform]()
+        var transform = first
+        for _ in (0..&lt;times) {
+            results.append(transform)
+            transform = transform.concatenating(step)
+        }
+        return results
+}
+
+public struct Spiral : View {
+    public let steps: Int
+    public let offsetRatio: CGFloat
+    public let edgeLength: CGFloat
+    public let cornerRadius: CGFloat
+    public let lineWidth: CGFloat
+    public let color: Color
+    public var body: some View {
+        let step = innerRotationTransform(offsetRatio: offsetRatio, centerX: edgeLength/2, centerY: edgeLength/2)
+        let transforms = repeatedTransforms(times: steps, step: step)
+        return ZStack {
+            ForEach(transforms, id: \.self) {(transform: CGAffineTransform) in
+                RoundedRectangle(cornerRadius: self.cornerRadius)
+                    .transform(transform)
+                    .stroke(lineWidth: self.lineWidth)
+                    // if you swap the two lines above (.transform... and .stroke...) then linewidth is also transformed
+                    .aspectRatio(contentMode: ContentMode.fit)
+                    .frame(width: self.edgeLength, height: self.edgeLength)
+                    .foregroundColor(self.color)
+            }
+        }
+        
+    }
+    
+    public init(
+        steps: Int = 50,
+        offsetRatio: CGFloat = 0.1,
+        edgeLength: CGFloat = 500,
+        cornerRadius: CGFloat = 0,
+        lineWidth: CGFloat = 1,
+        color: Color = .orange
+    ) {
+        self.steps = steps
+        self.offsetRatio = offsetRatio
+        self.edgeLength = edgeLength
+        self.cornerRadius = cornerRadius
+        self.lineWidth = lineWidth
+        self.color = color
+    }
+}
+
+extension CGAffineTransform : Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(a)
+        hasher.combine(b)
+        hasher.combine(c)
+        hasher.combine(d)
+        hasher.combine(tx)
+        hasher.combine(ty)
+    }
+}
+
+
+#if canImport(PlaygroundSupport)
+
+import PlaygroundSupport
+public func nextPageButton() -&gt; some View {
+    Button(action: { PlaygroundPage.current.navigateTo(page: PlaygroundPage.PageNavigation.next) } ) {
+        Text("Next Page")
+    }
+}
+
+#else
+
+public func nextPageButton() -&gt; some View {
+    Button(action: {  } ) {
+        Text("Next Page")
+    }
+}
+
+#endif
+
+public func nextPageView() -&gt; some View {
+    VStack {
+        Spacer()
+        nextPageButton()
+    }
+}
+
+public struct Goal : View {
+    public let message: String
+    
+    public init(message: String) { self.message = message }
+    
+    public var body: some View {
+        VStack {
+            Text(message).font(.title).frame(width: 400)
+            Spacer()
+        }
+    }
+}
+</string>
+			<key>ModifiedRange</key>
+			<string>{0, 4305}</string>
+			<key>OriginalContent</key>
+			<string>// Code inside modules can be shared between pages and other source files.
+</string>
+			<key>OriginalRange</key>
+			<string>{0, 75}</string>
+		</dict>
+	</array>
+	<key>FormatVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>
